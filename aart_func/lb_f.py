@@ -1,3 +1,4 @@
+import params
 from aart_func import *
 from params import * 
 
@@ -283,7 +284,10 @@ def hulls(alpha, beta, smin=0.5, smax=100,limi0=0.99,lime0=1.01,limi1=0.999,lime
     return points_0i, points_0e, points_1i, points_1e, points_2i,  points_2e
 
 
-def lb():
+def lb(dx0, dx1, dx2):
+    params.dx0 = dx0
+    params.dx1 = dx1
+    params.dx2 = dx2
 
     #"Computing the grids for each lensing bands"
     critc=CritCurve(spin_case,i_case)
