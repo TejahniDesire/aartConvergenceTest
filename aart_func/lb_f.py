@@ -195,7 +195,7 @@ def in_hull(p, hull):
     Check if points in p are inside the concave hull
     NB. There is a weird behaviour in the function (https://github.com/matplotlib/matplotlib/issues/9704), so we need to add that argument and a small number. 
     """
-    concave=EZPaths.Path(hull)
+    concave=paths.Path(hull)
     return concave.contains_points(p,radius=1e-9)
 
 def grid_mask(hull,hull2,dx,limits,force_lims = False):

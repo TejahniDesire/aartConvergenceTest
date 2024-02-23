@@ -3,9 +3,9 @@ import subprocess
 import os.path
 import kgeo
 
-
-aartpath = '/home/td6241/repositories/aart_convergence/aart_tdwork'  # insert path to aart repo
-sys.path.append(aartpath)
+aartPath = '/home/td6241/repositories/aart_convergence/aart_tdwork'  # insert path to aart repo
+sys.path.append(aartPath)
+import PCPaths
 import image_tools as tls
 from aart_func import *
 from params import *  # The file params.py contains all the relevant parameters for the simulations
@@ -22,11 +22,14 @@ action = {
     "stop": args.stop,
     "step": args.step_size,
 }
-final_data_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/'
+final_data_path = EZPaths.aartOutput
 iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action["step"])
 
-mean_radii_thick = np.load(final_data_path + "mean_radii_Thick_" + iteration + ".npy")
-mean_radii_thin = np.load(final_data_path + "mean_radii_Thin_" + iteration + ".npy")
+iteration_path = PCPaths.aartPathResults + iteration + '/'
+radial_data_path = iteration_path + 'radii/'
+
+mean_radii_thick = np.load(radial_data_path + "mean_radii_Thick_" + iteration + ".npy")
+mean_radii_thin = np.load(radial_data_path + "mean_radii_Thin_" + iteration + ".npy")
 
 trials = int((action["stop"] - action["start"]) / action["step"])
 
