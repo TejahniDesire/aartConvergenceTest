@@ -64,7 +64,7 @@ iteration_path = '/home/td6241/repositories/aart_convergence/aart_results/conver
 lband_path = iteration_path + 'lbands/' + 'lensingband_' + str(args.i) + '.h5'  # lensing bands
 rtray_path = iteration_path + 'rbands/' 'raytracing_' + str(args.i) + '.h5'  # raytracing bands
 
-fnrays = lband_path
+fnrays = rtray_path
 
 print("Reading file: ",fnrays)
 
@@ -80,7 +80,7 @@ h5f.close()
 
 print("Intensity")
 
-fnbands= rtray_path
+fnbands= lband_path
 
 print("Reading file: ",fnbands)
 
