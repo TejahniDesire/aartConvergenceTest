@@ -38,9 +38,18 @@ rtray_path = iteration_path + 'rbands/'  # raytracing bands
 isExist = os.path.exists(iteration_path)
 if not isExist:
     os.makedirs(iteration_path)
+    print("A directory was created to store intensity h.5 files")
+
+isExist = os.path.exists(lband_path)
+if not isExist:
     os.makedirs(lband_path)
+    print("A directory was created to store intensity h.5 files")
+
+isExist = os.path.exists(rtray_path)
+if not isExist:
     os.makedirs(rtray_path)
     print("A directory was created to store intensity h.5 files")
+
 
 k = action["start"]
 
@@ -120,8 +129,8 @@ for i in range(trials + 1):
     h5f.close()
 
     # Move lensing bands and ratracing bands
-    subprocess.run(["mv " + fnbands + ' ' + lband_path + 'lensingband_' + i + '.h5'], shell=True)
-    subprocess.run(["rm " + fnrays1 + ' ' + rtray_path + 'raytracing_' + i + '.h5'], shell=True)
+    subprocess.run(["mv " + fnbands + ' ' + lband_path + 'lensingband_' + str(i) + '.h5'], shell=True)
+    subprocess.run(["rm " + fnrays1 + ' ' + rtray_path + 'raytracing_' + str(i) + '.h5'], shell=True)
 
     k += action['step']
 
