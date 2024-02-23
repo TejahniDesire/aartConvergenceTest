@@ -30,7 +30,9 @@ trials = int((action["stop"] - action["start"]) / action["step"])
 iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action["step"])
 
 # Create intensity files
-iteration_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/' + iteration + '/'
+
+# iteration_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/' + iteration + '/'
+iteration_path = '/scratch/network/td6241/convergence_data/' + iteration + '/'
 lband_path = iteration_path + 'lbands/'  # lensing bands
 rtray_path = iteration_path + 'rbands/'  # raytracing bands
 
