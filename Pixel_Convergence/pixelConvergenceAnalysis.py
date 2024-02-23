@@ -26,8 +26,15 @@ action = {
 iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action["step"])
 
 iteration_path = PCPaths.aartPathResults + iteration + '/'
+intent_path = iteration_path + 'intent/'
 radial_data_path = iteration_path + 'radii/'
-intensity_path = iteration_path + '/'
+images_path = iteration_path + 'images/'
+
+# Create a directory for the results
+isExist = os.path.exists(images_path)
+if not isExist:
+    os.makedirs(images_path)
+    print("A directory was created to store images")
 
 mean_radii_thick = np.load(radial_data_path + "mean_radii_Thick_" + iteration + ".npy")
 mean_radii_thin = np.load(radial_data_path + "mean_radii_Thin_" + iteration + ".npy")
@@ -68,14 +75,7 @@ ax2.set_xlabel('Pixels')
 ax2.set_ylabel('Mean radii for Optically Thick Model')
 ax2.legend()
 
-images_path = iteration_path + 'images/'
 
-# Create a directory for the results
-isExist = os.path.exists(images_path)
-if not isExist:
-    os.makedirs(images_path)
-    print("A directory was created to store images")
-    
 plt.savefig(images_path + 'conv_' + iteration + ".jpeg",bbox_inches='tight')
 
 plt.close()
@@ -87,7 +87,7 @@ k = action["start"]
 
 for i in range(trials+1):
 
-    fnrays = iteration_path + 'Intensity_' + iteration + '_innerIteration_' + str(int(i)) + '.h5'
+    fnrays = intent_path + 'Intensity_innerIteration_' + str(int(i)) + '.h5'
     lim0 = 25
         
     print("Reading file: ",fnrays)
@@ -197,8 +197,9 @@ for i in range(trials+1):
     plt.subplots_adjust(wspace=.3)
     
     k += action['step']
-    
-    plt.savefig(images_path + 'FullImage_' + str(i) +  ".jpeg",bbox_inches='tight')
+    imagename = images_path + 'FullImage_' + str(i) +  ".jpeg"
+    plt.savefig(imagename,bbox_inches='tight')
+    print("Jpeg Created:  " + imagename)
 
 
     
