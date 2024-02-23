@@ -1,5 +1,6 @@
 import sys
 import subprocess
+import paths
 import os.path
 import kgeo
 
@@ -32,7 +33,7 @@ iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action[
 # Create intensity files
 
 # iteration_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/' + iteration + '/'
-iteration_path = '/scratch/network/td6241/convergence_data/' + iteration + '/'
+iteration_path = paths.aartPathResults + iteration + '/'
 lband_path = iteration_path + 'lbands/'  # lensing bands
 rtray_path = iteration_path + 'rbands/'  # raytracing bands
 

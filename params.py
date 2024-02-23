@@ -1,4 +1,5 @@
 from aart_func import *
+import paths
 
 print("\nThanks for using AART")
 print("Copyright (C) 2022, A. Cardenas-Avendano, H. Zhu & A. Lupsasca\n")
@@ -126,7 +127,8 @@ fov_Real=np.arctan(sizeim_Real/(dBH))/muas_to_rad #muas
 
 #Path where the results will be stored
 # path = './Results/'
-path = '/home/td6241/repositories/aart_convergence/aart_results/path_results/'
+path = paths.aartOutput
+# path = '/home/td6241/repositories/aart_convergence/aart_results/path_results/'
 
 # Create a directory for the results
 isExist = os.path.exists(path)
