@@ -11,6 +11,7 @@ from aart_func import *
 from params import *  # The file params.py contains all the relevant parameters for the simulations
 import params
 from astropy import units as u
+import numpy as np
 #
 # import importlib
 # #
@@ -72,16 +73,18 @@ mean_radii_Thin = np.ndarray([trials + 1, 4])  # [I0, I1, I2, cumu]
 mean_radii_Thick = np.ndarray([trials + 1, 4])  # [I0, I1, I2, FullImage]
 
 # Create intensity files
-intensity_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/'+ iteration + '/'
+iteration_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/' + iteration + '/'
+lband_path = iteration_path + 'lbands/'  # lensing bands
+rtray_path = iteration_path + 'rbands/'  # raytracing bands
+
 
 # Create a directory for the results
-isExist = os.path.exists(intensity_path)
+isExist = os.path.exists(iteration_path)
 if not isExist:
-    os.makedirs(intensity_path)
+    os.makedirs(iteration_path)
+    os.makedirs(lband_path)
+    os.makedirs(rtray_path)
     print("A directory was created to store intensity h.5 files")
-
-
-
 
 k = action["start"]
 
@@ -107,7 +110,6 @@ funckeys = {
         "tnoisykey" : 0, # tnoisykey Inoisy temperature
         "bnoisykey" : 0# bnoisykey Inoisy magnetic field
 }
-    
 
 
 for i in range(trials+1):
@@ -292,7 +294,7 @@ for i in range(trials+1):
     h5f.close()
     
     oldname = fnrays
-    newname = intensity_path + 'Intensity_' + iteration + '_iteration_' + str(int(i)) + '.h5'
+    newname = iteration_path + 'Intensity_' + iteration + '_iteration_' + str(int(i)) + '.h5'
     subprocess.run(["mv " + oldname + " " + newname], shell=True)
     print('file ' + newname + ' created')
     
@@ -333,7 +335,10 @@ for i in range(trials+1):
     mean_radii_Thick[i, 3] = full_thick
     
     # remove uneeded files
-    
+    # Move lensing bands and ratracing bands
+    subprocess.run(["mv " + fnbands + ' ' + lband_path + 'lensingband_' + i + '.h5'], shell=True)
+    subprocess.run(["rm " + fnrays1 + ' ' + rtray_path + 'raytracing_' + i + '.h5'], shell=True)
+
     
     subprocess.run(["rm " + fnbands], shell=True)
     subprocess.run(["rm " + fnrays1], shell=True)
