@@ -89,25 +89,8 @@ mean_radii_Thick = np.ndarray([trials + 1, 4])  # [I0, I1, I2, FullImage]
 
 k = action["start"]
 
-# brightparams = {
-#     "nu0": 230e9,  # 0 nu0
-#     "mass": (MMkg * u.kg).to(u.g).value,  # 1 mass
-#     "scale_height": .5,  # 2 scale_height
-#     "theta_b": 50.0 * (np.pi / 180),  # 3 theta_b
-#     "beta": 1.0,  # 4 beta
-#     "r_ie": 10.0,  # 5 rie
-#     "rb_0": 2,  # 7 rb_0
-#     "n_th0": 1.9e4,  # ,4e5 # 8 n_th0
-#     "t_e0": 2e11,  # 9 t_e0 1e12
-#     "p_dens": -.7,  # 10 p_dens
-#     "p_temp": -.84,  # 11 p_temp
-#     "nscale": .4,  # Scale of Inoisy
-#     "start": action['start'],
-#     "stop": action['stop'],
-#     "step": action['step'],
-# }
 brightparams = {
-    "nu0": 700e9,  # 0 nu0
+    "nu0": 230e9,  # 0 nu0
     "mass": (MMkg * u.kg).to(u.g).value,  # 1 mass
     "scale_height": .5,  # 2 scale_height
     "theta_b": 50.0 * (np.pi / 180),  # 3 theta_b
@@ -123,6 +106,23 @@ brightparams = {
     "stop": action['stop'],
     "step": action['step'],
 }
+# brightparams = {
+#     "nu0": 700e9,  # 0 nu0
+#     "mass": (MMkg * u.kg).to(u.g).value,  # 1 mass
+#     "scale_height": .5,  # 2 scale_height
+#     "theta_b": 50.0 * (np.pi / 180),  # 3 theta_b
+#     "beta": 1.0,  # 4 beta
+#     "r_ie": 10.0,  # 5 rie
+#     "rb_0": 2,  # 7 rb_0
+#     "n_th0": 1.9e4,  # ,4e5 # 8 n_th0
+#     "t_e0": 2e11,  # 9 t_e0 1e12
+#     "p_dens": -.7,  # 10 p_dens
+#     "p_temp": -.84,  # 11 p_temp
+#     "nscale": .4,  # Scale of Inoisy
+#     "start": action['start'],
+#     "stop": action['stop'],
+#     "step": action['step'],
+# }
 
 
 funckeys = {
