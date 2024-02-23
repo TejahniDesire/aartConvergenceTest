@@ -43,12 +43,12 @@ if not isExist:
 isExist = os.path.exists(lband_path)
 if not isExist:
     os.makedirs(lband_path)
-    print("A directory was created to store intensity h.5 files")
+    print("A directory was created to store lensing band h.5 files")
 
 isExist = os.path.exists(rtray_path)
 if not isExist:
     os.makedirs(rtray_path)
-    print("A directory was created to store intensity h.5 files")
+    print("A directory was created to store raytracing h.5 files")
 
 
 k = action["start"]
@@ -133,5 +133,8 @@ for i in range(trials + 1):
     subprocess.run(["mv " + fnrays1 + ' ' + rtray_path + 'raytracing_' + str(i) + '.h5'], shell=True)
 
     k += action['step']
+
+
+
 
 

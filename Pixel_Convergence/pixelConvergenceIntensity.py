@@ -64,14 +64,14 @@ iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action[
 iteration_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/' + iteration + '/'
 lband_path = iteration_path + 'lbands/'  # lensing bands
 rtray_path = iteration_path + 'rbands/'  # raytracing bands
+radial_data_path = iteration_path + 'radii/'
+
 
 # Create a directory for the results
-isExist = os.path.exists(iteration_path)
+isExist = os.path.exists(radial_data_path)
 if not isExist:
-    os.makedirs(iteration_path)
-    os.makedirs(lband_path)
-    os.makedirs(rtray_path)
-    print("A directory was created to store intensity h.5 files")
+    os.makedirs(radial_data_path)
+    print("A directory was created to store radii files")
 
 mean_radii_Thin = np.ndarray([trials + 1, 4])  # [I0, I1, I2, cumu]
 mean_radii_Thick = np.ndarray([trials + 1, 4])  # [I0, I1, I2, FullImage]
@@ -221,3 +221,7 @@ for i in range(trials + 1):
     mean_radii_Thick[i, 3] = full_thick
 
     k += action['step']
+
+
+np.save(radial_data_path + "mean_radii_Thin_" + iteration, mean_radii_Thin)
+np.save(radial_data_path + "mean_radii_Thick_" + iteration, mean_radii_Thick)
