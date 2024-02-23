@@ -39,6 +39,7 @@ iteration_path = PCPaths.aartPathResults + iteration + '/'
 lband_path = iteration_path + 'lbands/'  # lensing bands
 rtray_path = iteration_path + 'rbands/'  # raytracing bands
 
+
 # Create a directory for the results
 isExist = os.path.exists(iteration_path)
 if not isExist:

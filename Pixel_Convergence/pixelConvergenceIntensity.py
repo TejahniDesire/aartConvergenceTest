@@ -66,6 +66,7 @@ iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action[
 iteration_path = PCPaths.aartPathResults + iteration + '/'
 lband_path = iteration_path + 'lbands/'  # lensing bands
 rtray_path = iteration_path + 'rbands/'  # raytracing bands
+intent_path = iteration_path + 'intent/'
 radial_data_path = iteration_path + 'radii/'
 
 # Create intensity files
@@ -77,6 +78,10 @@ radial_data_path = iteration_path + 'radii/'
 isExist = os.path.exists(radial_data_path)
 if not isExist:
     os.makedirs(radial_data_path)
+    print("A directory was created to store radii files")
+isExist = os.path.exists(intent_path)
+if not isExist:
+    os.makedirs(intent_path)
     print("A directory was created to store radii files")
 
 mean_radii_Thin = np.ndarray([trials + 1, 4])  # [I0, I1, I2, cumu]
@@ -194,7 +199,7 @@ for i in range(trials + 1):
     h5f.close()
 
     oldname = fnrays
-    newname = iteration_path + 'Intensity_' + iteration + '_innerIteration_' + str(int(i)) + '.h5'
+    newname = intent_path + 'Intensity_innerIteration_' + str(int(i)) + '.h5'
     subprocess.run(["mv " + oldname + " " + newname], shell=True)
     print('file ' + newname + ' created')
 
