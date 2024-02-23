@@ -22,11 +22,12 @@ action = {
     "stop": args.stop,
     "step": args.step_size,
 }
-final_data_path = EZPaths.aartOutput
+
 iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action["step"])
 
 iteration_path = PCPaths.aartPathResults + iteration + '/'
 radial_data_path = iteration_path + 'radii/'
+intensity_path = iteration_path + '/'
 
 mean_radii_thick = np.load(radial_data_path + "mean_radii_Thick_" + iteration + ".npy")
 mean_radii_thin = np.load(radial_data_path + "mean_radii_Thin_" + iteration + ".npy")
@@ -48,7 +49,7 @@ fig.tight_layout(pad=5.0)
 ax1.plot(x_var, mean_radii_thin[:,0],label="n_0")
 ax1.plot(x_var, mean_radii_thin[:,1],label="n_1")
 ax1.plot(x_var, mean_radii_thin[:,2],label="n_2")
-ax1.plot(x_var, mean_radii_thin[:,3],label="n_2")
+ax1.plot(x_var, mean_radii_thin[:,3],label="cumulative")
 ax1.axvline(555.555, color="purple")
 
 ax1.set_xlabel('Pixels')
@@ -67,7 +68,7 @@ ax2.set_xlabel('Pixels')
 ax2.set_ylabel('Mean radii for Optically Thick Model')
 ax2.legend()
 
-images_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/'+ iteration + '/' + 'images/'
+images_path = iteration_path + 'images/'
 
 # Create a directory for the results
 isExist = os.path.exists(images_path)
@@ -79,14 +80,14 @@ plt.savefig(images_path + 'conv_' + iteration + ".jpeg",bbox_inches='tight')
 
 plt.close()
 
-iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action["step"])
-intensity_path = '/home/td6241/repositories/aart_convergence/aart_results/convergence_data/'+ iteration + '/'
+
 
 k = action["start"]
 
 
 for i in range(trials+1):
-    fnrays = intensity_path + 'Intensity_' + iteration + '_iteration_' + str(int(i)) + '.h5'
+
+    fnrays = iteration_path + 'Intensity_' + iteration + '_innerIteration_' + str(int(i)) + '.h5'
     lim0 = 25
         
     print("Reading file: ",fnrays)
@@ -157,6 +158,7 @@ for i in range(trials+1):
     # theta = np.arange(2*np.pi + 1, step=(2*np.pi + 1) / 100)
     radius1, theta1 = tls.radii_of_theta(I1,size)
     radius2, theta2 = tls.radii_of_theta(I2,size)
+    radius3, theta = tls.radii_of_theta(I2 + I1 + I0,size)
 
     alpha0 =  radius * np.cos(theta)
     beta0 =  radius * np.sin(theta)
@@ -164,21 +166,34 @@ for i in range(trials+1):
     beta1 =  radius1 * np.sin(theta)
     alpha2 =  radius2 * np.cos(theta)
     beta2 =  radius2 * np.sin(theta)
+    alpha3 =  radius3 * np.cos(theta)
+    beta3 =  radius3 * np.sin(theta)
     
     ax0.plot(alpha0, beta0, color='tab:blue', linestyle='-')
     ax0.plot(alpha1, beta1, color='tab:orange', linestyle=':')
     ax0.plot(alpha2, beta2, color='tab:green', linestyle='--')
+    ax0.plot(alpha3, beta3, color='tab:red', linestyle='--')
     
-    
-    
-    # Thick
-    radius, theta = tls.radii_of_theta(Absorbtion_Image,size)
-    # theta = np.arange(2*np.pi + 1, step=(2*np.pi + 1) / 100)
-    alpha0 =  radius * np.cos(theta)
-    beta0 =  radius * np.sin(theta)
 
-    
-    ax1.plot(alpha0, beta0, color='tab:red', linestyle='-')
+    # Thick
+    radius0, theta = tls.radii_of_theta(I0_Absorb, size)
+    radius1, theta = tls.radii_of_theta(I1_Absorb, size)
+    radius2, theta = tls.radii_of_theta(I2_Absorb, size)
+    radius3, theta = tls.radii_of_theta(Absorbtion_Image,size)
+    # theta = np.arange(2*np.pi + 1, step=(2*np.pi + 1) / 100)
+    alpha0 =  radius0 * np.cos(theta)
+    beta0 =  radius0 * np.sin(theta)
+    alpha1 =  radius1 * np.cos(theta)
+    beta1 =  radius1 * np.sin(theta)
+    alpha2 =  radius2 * np.cos(theta)
+    beta2 =  radius2 * np.sin(theta)
+    alpha3 =  radius3 * np.cos(theta)
+    beta3 =  radius3 * np.sin(theta)
+
+    ax1.plot(alpha0, beta0, color='tab:blue', linestyle='-')
+    ax1.plot(alpha1, beta1, color='tab:orange', linestyle=':')
+    ax1.plot(alpha2, beta2, color='tab:green', linestyle='--')
+    ax1.plot(alpha3, beta3, color='tab:red', linestyle='--')
     plt.subplots_adjust(wspace=.3)
     
     k += action['step']

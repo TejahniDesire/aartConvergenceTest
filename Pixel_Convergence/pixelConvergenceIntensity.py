@@ -194,7 +194,7 @@ for i in range(trials + 1):
     h5f.close()
 
     oldname = fnrays
-    newname = iteration_path + 'Intensity_' + iteration + '_iteration_' + str(int(i)) + '.h5'
+    newname = iteration_path + 'Intensity_' + iteration + '_innerIteration_' + str(int(i)) + '.h5'
     subprocess.run(["mv " + oldname + " " + newname], shell=True)
     print('file ' + newname + ' created')
 
