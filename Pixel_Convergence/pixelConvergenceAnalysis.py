@@ -62,11 +62,15 @@ ax1.axvline(555.555, color="purple")
 ax1.set_xlabel('Pixels')
 ax1.set_ylabel('Mean radii for Optically Thick Model')
 ax1.legend()
+ax1.title.set_text('Optically Thin Assumption')
 
 
-ax2.plot(x_var,mean_radii_thick[:,0],label="One Pass")
-ax2.plot(x_var,mean_radii_thick[:,1],label="Two Pass")
-ax2.plot(x_var,mean_radii_thick[:,2],label="Three Pass")
+# ax2.plot(x_var,mean_radii_thick[:,0],label="One Pass")
+# ax2.plot(x_var,mean_radii_thick[:,1],label="Two Pass")
+# ax2.plot(x_var,mean_radii_thick[:,2],label="Three Pass")
+ax2.plot(x_var,mean_radii_thick[:,0],label="n_0")
+ax2.plot(x_var,mean_radii_thick[:,1],label="n_1")
+ax2.plot(x_var,mean_radii_thick[:,2],label="n_2")
 ax2.plot(x_var,mean_radii_thick[:,3],label="cumulative")
 ax2.axvline(555.555, color="purple")
 
@@ -74,6 +78,7 @@ ax2.axvline(555.555, color="purple")
 ax2.set_xlabel('Pixels')
 ax2.set_ylabel('Mean radii for Optically Thick Model')
 ax2.legend()
+ax2.title.set_text('Full Solution')
 
 
 plt.savefig(images_path + 'conv_' + iteration + ".jpeg",bbox_inches='tight')
@@ -121,10 +126,8 @@ for i in range(trials+1):
 
     ax0.set_xlabel(r"$\alpha$"+" "+r"($\mu as$)")
     ax0.set_ylabel(r"$\beta$"+" "+r"($\mu as$)")
-    
+    ax0.title.set_text('Optically Thin Assumption')
 
-
-    
     # Optically thick
 
     im1 = ax1.imshow(Absorbtion_Image, origin="lower",cmap="afmhot",extent=[-lim0,lim0,-lim0,lim0])
@@ -139,6 +142,7 @@ for i in range(trials+1):
     
     ax1.text(-9, 8.5, 'dx= ' + str(k), fontsize=12, color="w")
     ax1.text(-9, 7.5, 'Pixels= ' + str(2 * limits/k), fontsize=12, color="w")
+    ax1.title.set_text('Full Solution')
     
     colorbar0=fig.colorbar(im1, fraction=0.046, pad=0.04, format='%.1e', ticks=[
     vmax0*.8,
