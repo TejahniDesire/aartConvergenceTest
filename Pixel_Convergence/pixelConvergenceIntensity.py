@@ -119,9 +119,9 @@ cmd1_args = {
     "p_dens": '--pdens ',
     "p_temp": '--ptemp ',
     "nscale": '--nscale ',
-    "start": '--start',
-    "stop": '--stop',
-    "step": '--step',
+    "start": '--start ',
+    "stop": '--stop ',
+    "step": '--step ',
 }
 
 cmd2_args = {
