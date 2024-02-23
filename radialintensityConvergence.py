@@ -100,7 +100,7 @@ if bvapp!=1:
 	mask2=h5f['mask2'][:]
 	N2=int(h5f["N2"][0])
 
-	fnbands=path+"Rays_a_%s_i_%s.h5"%(spin_case,i_case)
+	fnbands=rtray_path
 
 	print("Reading file: ",fnbands)
 
