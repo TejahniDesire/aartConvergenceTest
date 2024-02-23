@@ -107,7 +107,7 @@ k = action["start"]
 #     "step": action['step'],
 # }
 brightparams = {
-    "nu0": 10e9,  # 0 nu0
+    "nu0": 700e9,  # 0 nu0
     "mass": (MMkg * u.kg).to(u.g).value,  # 1 mass
     "scale_height": .5,  # 2 scale_height
     "theta_b": 50.0 * (np.pi / 180),  # 3 theta_b
