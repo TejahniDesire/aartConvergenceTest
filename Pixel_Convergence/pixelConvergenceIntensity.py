@@ -76,10 +76,7 @@ if not isExist:
 mean_radii_Thin = np.ndarray([trials + 1, 4])  # [I0, I1, I2, cumu]
 mean_radii_Thick = np.ndarray([trials + 1, 4])  # [I0, I1, I2, FullImage]
 
-
 k = action["start"]
-
-
 
 brightparams = {
     "nu0": 230e9,  # 0 nu0
@@ -93,8 +90,12 @@ brightparams = {
     "t_e0": 2e11,  # 9 t_e0 1e12
     "p_dens": -.7,  # 10 p_dens
     "p_temp": -.84,  # 11 p_temp
-    "nscale": .4  # Scale of Inoisy
+    "nscale": .4,  # Scale of Inoisy
+    "start": action['start'],
+    "stop": action['stop'],
+    "step": action['step'],
 }
+
 
 funckeys = {
     "emodelkey": 0,  # emodelkey Emission Model choice, 0 = thermal ultrarelativistic, 1 = power law
@@ -118,6 +119,9 @@ cmd1_args = {
     "p_dens": '--pdens ',
     "p_temp": '--ptemp ',
     "nscale": '--nscale ',
+    "start": '--start',
+    "stop": '--stop',
+    "step": '--step',
 }
 
 cmd2_args = {
@@ -140,7 +144,7 @@ for i in range(trials + 1):
     print("Iteration number: ", i)
     print("dx value: ", k)
 
-    subprocess.run(['python3 ' + aartpath + '/radialintensity.py' + args], shell=True)
+    subprocess.run(['python3 ' + aartpath + '/radialintensityConvergence.py' + args + '--i ' + str(i)], shell=True)
 
     # TODO: modify name
     # fnrays='./Results/Intensity_a_{}|i_{}|nu_{}|mass_{}|scaleh_{}|thetab_{}|beta_{}|rie_{}|rb_{}|nth0_{}|te0_{}|pdens_{}|ptemp_{}|nscale_{}|emkey_{}|bkey_{}|nkey_{}|tnke
