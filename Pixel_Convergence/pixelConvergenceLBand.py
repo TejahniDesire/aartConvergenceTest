@@ -130,7 +130,7 @@ for i in range(trials + 1):
 
     # Move lensing bands and ratracing bands
     subprocess.run(["mv " + fnbands + ' ' + lband_path + 'lensingband_' + str(i) + '.h5'], shell=True)
-    subprocess.run(["rm " + fnrays1 + ' ' + rtray_path + 'raytracing_' + str(i) + '.h5'], shell=True)
+    subprocess.run(["mv " + fnrays1 + ' ' + rtray_path + 'raytracing_' + str(i) + '.h5'], shell=True)
 
     k += action['step']
 
