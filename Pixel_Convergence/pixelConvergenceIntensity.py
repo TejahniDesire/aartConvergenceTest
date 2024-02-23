@@ -1,10 +1,10 @@
 import sys
 import subprocess
-import paths
 import os.path
 import kgeo
+import PCPaths
 
-aartpath = paths.aartpath # insert path to aart repo
+aartpath = PCPaths.aartPath # insert path to aart repo
 
 
 sys.path.append(aartpath)
@@ -63,7 +63,7 @@ trials = int((action["stop"] - action["start"]) / action["step"])
 
 iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action["step"])
 
-iteration_path = paths.aartPathResults + iteration + '/'
+iteration_path = PCPaths.aartPathResults + iteration + '/'
 lband_path = iteration_path + 'lbands/'  # lensing bands
 rtray_path = iteration_path + 'rbands/'  # raytracing bands
 radial_data_path = iteration_path + 'radii/'
