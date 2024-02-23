@@ -1,4 +1,4 @@
-import paths
+import EZPaths
 from aart_func import *
 from params import *
 import argparse
@@ -51,7 +51,7 @@ funckeys = {
 # fnrays="./Results/Rays_a_%s_i_%s.h5"%(spin_case,i_case)
 
 # fnrays = path + "Rays_a_%s_i_%s.h5"%(spin_case,i_case)
-fnrays = paths.aartOutput
+fnrays = EZPaths.aartOutput
 
 print("Reading file: ",fnrays)
 

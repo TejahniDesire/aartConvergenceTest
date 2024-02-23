@@ -1,9 +1,9 @@
 aartPath = '/home/td6241/repositories/aart_convergence/aart_tdwork'
 import sys
 sys.path.append(aartPath)
-import paths
+import EZPaths
 
 
-aartPath = paths.aartPath
-aartPathResults = paths.aartPathResults
-aartOutput = paths.aartOutput
+aartPath = EZPaths.aartPath
+aartPathResults = EZPaths.aartPathResults
+aartOutput = EZPaths.aartOutput
