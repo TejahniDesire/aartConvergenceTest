@@ -104,7 +104,7 @@ for i in range(trials+1):
     Absorbtion_Image =h5f['bghts_full_absorbtion'][:]
     
     h5f.close()
-
+    2 * limits
 
     vmax0 = np.nanmax(I0+I1+I2)*1.2
     fig, (ax0, ax1) = plt.subplots(1,2,figsize=[15,7],dpi=400)
@@ -138,6 +138,7 @@ for i in range(trials+1):
     ax1.set_ylabel(r"$\beta$"+" "+r"($\mu as$)")
     
     ax1.text(-9, 8.5, 'dx= ' + str(k), fontsize=12, color="w")
+    ax1.text(-9, 7.5, 'Pixels= ' + str(2 * limits/k), fontsize=12, color="w")
     
     colorbar0=fig.colorbar(im1, fraction=0.046, pad=0.04, format='%.1e', ticks=[
     vmax0*.8,
