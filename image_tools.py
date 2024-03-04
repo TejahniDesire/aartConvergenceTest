@@ -39,6 +39,7 @@ def radii_of_theta(I0):
     
     peaks = np.ravel(r[peak])  # value of r at that argument
     dx_0 = (limits * 2) / I0.shape[0]
+    print("dx_0 ", dx_0)
     return (peaks * dx_0), np.ravel(theta)  # units of Rg
 
     x = np.arange(I0.shape[0])

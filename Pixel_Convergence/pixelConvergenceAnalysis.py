@@ -245,9 +245,9 @@ for i in range(trials+1):
 
     images = [I0 + I1 + I2, Absorbtion_Image]
     model = ["for Thin Assumption", "for Full Solution"]
+    print("dx0 ",k)
     for J in range(2):
         x = np.linspace(0, rmax - 1, rsize) * k
-        # x = np.linspace(0,rsize-1, rsize) * dx_0
         ptheta = [0, np.pi / 2, np.pi]
         colors = ['tab:blue', 'tab:green', 'tab:red']
         parg = []
