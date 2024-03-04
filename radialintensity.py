@@ -51,7 +51,7 @@ funckeys = {
 # fnrays="./Results/Rays_a_%s_i_%s.h5"%(spin_case,i_case)
 
 # fnrays = path + "Rays_a_%s_i_%s.h5"%(spin_case,i_case)
-fnrays = EZPaths.aartOutput
+fnrays = EZPaths.aartOutput + "Rays_a_%s_i_%s.h5"%(spin_case,i_case)
 
 print("Reading file: ",fnrays)
 
