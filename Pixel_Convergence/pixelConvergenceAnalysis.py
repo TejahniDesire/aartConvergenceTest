@@ -80,16 +80,11 @@ ax1.set_ylabel('Mean radii for Optically Thick Model')
 ax1.legend()
 ax1.title.set_text('Optically Thin Assumption')
 
-
-# ax2.plot(x_var,mean_radii_thick[:,0],label="One Pass")
-# ax2.plot(x_var,mean_radii_thick[:,1],label="Two Pass")
-# ax2.plot(x_var,mean_radii_thick[:,2],label="Three Pass")
 ax2.plot(x_var,mean_radii_thick[:,0],label="n_0", linewidth=3)
 ax2.plot(x_var,mean_radii_thick[:,1],label="n_1", linewidth=3)
 ax2.plot(x_var,mean_radii_thick[:,2],label="n_2", linewidth=3)
 ax2.plot(x_var,mean_radii_thick[:,3],label="cumulative", linewidth=2)
 ax2.axvline(1500, color="purple")
-
 
 ax2.set_xlabel('Pixels')
 ax2.set_ylabel('Mean radii for Optically Thick Model')
@@ -125,14 +120,11 @@ for i in range(trials+1):
     Absorbtion_Image =h5f['bghts_full_absorbtion'][:]
     
     h5f.close()
-    2 * limits
 
     vmax0 = np.nanmax(I0+I1+I2)*1.2
     fig, (ax0, ax1) = plt.subplots(1,2,figsize=[15,7],dpi=400)
     
     # Optically Thin
-    
-    
 
     im0 = ax0.imshow(I0 + I1 + I2,vmax=vmax0, origin="lower",cmap="afmhot",extent=[-lim0,lim0,-lim0,lim0])
 
@@ -225,94 +217,89 @@ for i in range(trials+1):
     plt.close()
     
     # Radii calc graphs__________________________________________
-
+    nu0 = 230e9
+    mass = (MMkg * u.kg).to(u.g).value
     rsize = tls.rsize
     rmax = I0.shape[0] * .4
-    
-    peak012, interp012  = tls.radii_of_theta_data(I0 + I1 + I2)
+
+    peak012, interp012 = tls.radii_of_theta_data(I0 + I1 + I2)
     # peak0, interp0  = tls.radii_of_theta_data(I0)
     # peak1, interp1  = tls.radii_of_theta_data(I1)
     # peak2, interp2  = tls.radii_of_theta_data(I2)
-    peakAbsorb, interpAbsorb = tls.radii_of_theta_data( Absorbtion_Image)
-    
-    peaks = [peak012,peakAbsorb]
+    peakAbsorb, interpAbsorb = tls.radii_of_theta_data(Absorbtion_Image)
+
+    peaks = [peak012, peakAbsorb]
     interps = [interp012, interpAbsorb]
 
-    nu0 = 230e9 
-    mass = (MMkg * u.kg).to(u.g).value
-    
-    for j in range(len(interps)):
-        interps[j] = ilp.to_bright_temp(interps[j], nu0, mass)
-    
-    
-    fig, dum = plt.subplots(2,2,figsize=[15,7],dpi=400)
+    for L in range(len(interps)):
+        interps[L] = ilp.to_bright_temp(interps[L], nu0, mass)
+
+    fig, dum = plt.subplots(2, 2, figsize=[15, 7], dpi=400)
     ax0 = plt.subplot(2, 2, 1)
     ax1 = plt.subplot(2, 2, 2)
     ax2 = plt.subplot(2, 2, 3)
     ax3 = plt.subplot(2, 2, 4)
-    
+
     axes_0 = [ax0, ax2]
     axes_1 = [ax1, ax3]
-    
+
     images = [I0 + I1 + I2, Absorbtion_Image]
     model = ["for Thin Assumption", "for Full Solution"]
-    
-    for j in range(2):
-        x = np.linspace(0,rmax-1, rsize) * dx0
+    for J in range(2):
+        x = np.linspace(0, rmax - 1, rsize) * dx0
         # x = np.linspace(0,rsize-1, rsize) * dx_0
         ptheta = [0, np.pi / 2, np.pi]
         colors = ['tab:blue', 'tab:green', 'tab:red']
         parg = []
-        for n in range(len(ptheta)):
-            parg += [tls.rad_to_arg(ptheta[n])]
-            axes_0[j].plot(x, interps[j][parg[n]], linewidth=2, color=colors[n], label=R"$\theta= $" + f"{ptheta[n]:.2f}")
-            axes_0[j].axvline(peaks[j][parg[n]], color=colors[n])
-        
-        axes_0[j].set_xlim([0,10])
-        axes_0[j].legend()
-        axes_0[j].set_xlabel(R"$R_g$")
-        axes_0[j].set_ylabel(R"Flux Value " + model[j])
-            
-        
-        im1 = axes_1[j].imshow(images[j], origin="lower",cmap="afmhot",extent=[-lim0,lim0,-lim0,lim0])
-        
-        axes_1[j].set_xlim(-10,10) # units of M
-        axes_1[j].set_ylim(-10,10) 
-            
-        axes_1[j].set_xlabel(r"$\alpha$"+" "+r"($\mu as$)")
-        axes_1[j].set_ylabel(r"$\beta$"+" "+r"($\mu as$)")
-        
+        for L in range(len(ptheta)):
+            parg += [tls.rad_to_arg(ptheta[L])]
+            axes_0[J].plot(x, interps[J][parg[L]], linewidth=2, color=colors[L],
+                           label=R"$\theta= $" + f"{ptheta[L]:.2f}")
+            axes_0[J].axvline(peaks[J][parg[L]], color=colors[L])
+
+        axes_0[J].set_xlim([0, 10])
+        axes_0[J].legend()
+        axes_0[J].set_xlabel(R"$R_g$")
+        axes_0[J].set_ylabel(R"Flux Value " + model[J])
+
+        im1 = axes_1[J].imshow(images[J], origin="lower", cmap="afmhot", extent=[-lim0, lim0, -lim0, lim0])
+
+        axes_1[J].set_xlim(-10, 10)  # units of M
+        axes_1[J].set_ylim(-10, 10)
+
+        axes_1[J].set_xlabel(r"$\alpha$" + " " + r"($\mu as$)")
+        axes_1[J].set_ylabel(r"$\beta$" + " " + r"($\mu as$)")
+
         # Plot lines
-        rline1 = np.array([0,10])
-        theta1 = np.array([0,0])
-        
+        rline1 = np.array([0, 10])
+        theta1 = np.array([0, 0])
+
         alpha1 = rline1 * np.cos(theta1)
         beta1 = rline1 * np.sin(theta1)
-        
-        for n in range(len(ptheta)):
-            rline = np.array([0,10])
-            theta = np.array([ptheta[n],ptheta[n]])
-        
+
+        for L in range(len(ptheta)):
+            rline = np.array([0, 10])
+            theta = np.array([ptheta[L], ptheta[L]])
+
             alpha = rline * np.cos(theta)
             beta = rline * np.sin(theta)
-        
-            axes_1[j].plot(alpha,beta, color=colors[n], linestyle='--')
-        
-        
-        
-        colorbar0=fig.colorbar(im1, fraction=0.046, pad=0.04, format='%.1e', ticks=[
-            vmax0*.8,
-            vmax0*.6,
-            vmax0*.4,
-            vmax0*.2,
-            vmax0*.05
-            ],
-            label="Brightnes Temperature (K)",
-            ax=axes_1[j]
-            )
-        imagename = radii_images_path + 'RadiiImage_' + str(i) +  ".jpeg"
-        plt.savefig(imagename,bbox_inches='tight')
-        print("Jpeg Created:  " + imagename)
+
+            axes_1[J].plot(alpha, beta, color=colors[L], linestyle='--')
+
+        colorbar0 = fig.colorbar(im1, fraction=0.046, pad=0.04, format='%.1e', ticks=[
+            vmax0 * .8,
+            vmax0 * .6,
+            vmax0 * .4,
+            vmax0 * .2,
+            vmax0 * .05
+        ],
+                                 label="Brightnes Temperature (K)",
+                                 ax=axes_1[J]
+                                 )
+
+    imagename = radii_images_path + 'RadiiImage_' + str(i) + ".jpeg"
+    plt.savefig(imagename,bbox_inches='tight')
+    print("Jpeg Created:  " + imagename)
 
     plt.close()
         
