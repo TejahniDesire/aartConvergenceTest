@@ -1,8 +1,8 @@
 /.idea
 __pycache__/
 aart_func/__pycache__/
-/.EZPaths.py
-/.Pixel_Convergence/PCPaths.py
+/EZPaths.py
+/Pixel_Convergence/PCPaths.py
 
 
 
