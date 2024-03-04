@@ -9,7 +9,8 @@ from lmfit import Parameters,minimize, fit_report
 size = 200   
 rsize = 10000
 
-def radii_of_theta(I0):
+
+def radii_of_theta(I0, dx=None):
     x = np.arange(I0.shape[0])  # number of pixels
     y = x
     rmax = I0.shape[0] * .4
@@ -36,38 +37,14 @@ def radii_of_theta(I0):
 
     coords = np.array([xprime, yprime]).T
     peak = np.argmax(interp(coords), 1)
+    if dx is None:
+        dx = (limits * 2) / I0.shape[0]
     
     peaks = np.ravel(r[peak])  # value of r at that argument
-    dx_0 = (limits * 2) / I0.shape[0]
-    print("dx_0 ", dx_0)
-    return (peaks * dx_0), np.ravel(theta)  # units of Rg
+    return (peaks * dx), np.ravel(theta)  # units of Rg
 
-    x = np.arange(I0.shape[0])
-    y = x
-    interp = RegularGridInterpolator((x,y), I0.T)
-    theta = np.matrix(np.linspace(0, 2 * np.pi, size)) # 1 x size
 
- 
-    r = np.matrix(np.arange(rmax)).T  # rmax x 1
-
-    onest = np.matrix(np.ones(r.shape[0])).T  # (rmax) x 1
-    onesr = np.matrix(np.ones(size))  # 1 x size
-
-    thetarray = onest @ theta  # (rmax) x size
-    rarray = r @ onesr  # (rmax) x size
-
-    # Convert to pixel coords from aart plot coords
-    xaart = np.multiply(rarray, np.cos(thetarray))
-    yaart = np.multiply(rarray, np.sin(thetarray))
-    xprime = xaart + I0.shape[0] / 2
-    yprime = yaart + I0.shape[0] / 2
-
-    coords = np.array([xprime, yprime]).T
-    peak = np.argmax(interp(coords), 1)
-
-    (peak * ((limits * 2) / I0.shape[0])), np.ravel(theta)  
-
-def radii_of_theta_data(I0):
+def radii_of_theta_data(I0, dx):
     x = np.arange(I0.shape[0])  # number of pixels
     y = x
     interp = RegularGridInterpolator((x,y), I0.T)
@@ -95,8 +72,8 @@ def radii_of_theta_data(I0):
     peak = np.argmax(interp(coords), 1)
     
     peaks = np.ravel(r[peak])  # value of r at that argument
-    dx_0 = (limits * 2) / I0.shape[0]
-    return (peaks * dx_0), interp(coords)
+
+    return (peaks * dx), interp(coords)
 
 
 def curve_params(varphi, rho):

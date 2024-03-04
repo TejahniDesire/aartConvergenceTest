@@ -209,7 +209,7 @@ for i in range(trials+1):
     ax1.plot(alpha3, beta3, color='tab:red', linestyle='--')
     plt.subplots_adjust(wspace=.3)
     
-    k += action['step']
+
     imagename = full_images_path + 'FullImage_' + str(i) +  ".jpeg"
     plt.savefig(imagename ,bbox_inches='tight')
     print("Jpeg Created:  " + imagename)
@@ -222,11 +222,15 @@ for i in range(trials+1):
     rsize = tls.rsize
     rmax = I0.shape[0] * .4
 
-    peak012, interp012 = tls.radii_of_theta_data(I0 + I1 + I2)
+    currentdx = (limits * 2) / I0.shape[0]
+    print("k value: ", k)
+    print("current dx: ", currentdx)
+
+    peak012, interp012 = tls.radii_of_theta_data(I0 + I1 + I2, k)
     # peak0, interp0  = tls.radii_of_theta_data(I0)
     # peak1, interp1  = tls.radii_of_theta_data(I1)
     # peak2, interp2  = tls.radii_of_theta_data(I2)
-    peakAbsorb, interpAbsorb = tls.radii_of_theta_data(Absorbtion_Image)
+    peakAbsorb, interpAbsorb = tls.radii_of_theta_data(Absorbtion_Image, k)
 
     peaks = [peak012, peakAbsorb]
     interps = [interp012, interpAbsorb]
@@ -245,7 +249,6 @@ for i in range(trials+1):
 
     images = [I0 + I1 + I2, Absorbtion_Image]
     model = ["for Thin Assumption", "for Full Solution"]
-    print("dx0 ",k)
     for J in range(2):
         x = np.linspace(0, rmax - 1, rsize) * k
         ptheta = [0, np.pi / 2, np.pi]
@@ -296,6 +299,8 @@ for i in range(trials+1):
                                  label="Brightnes Temperature (K)",
                                  ax=axes_1[J]
                                  )
+
+    k += action['step']
 
     imagename = radii_images_path + 'RadiiImage_' + str(i) + ".jpeg"
     plt.savefig(imagename,bbox_inches='tight')
