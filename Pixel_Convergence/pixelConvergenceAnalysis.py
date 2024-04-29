@@ -12,7 +12,8 @@ from params import *  # The file params.py contains all the relevant parameters 
 import params
 from astropy import units as u
 
-parser = argparse.ArgumentParser(description='Convergence test for pixel resolution', formatter_class=argparse.RawTextHelpFormatter)
+parser = argparse.ArgumentParser(description='Convergence test for pixel resolution',
+                                 formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument('start', type=float)
 parser.add_argument('stop', help='Inclusive Stop', type=float)
 parser.add_argument("step_size", type=float)
@@ -40,7 +41,6 @@ if not isExist:
     os.makedirs(full_images_path)
     print("A directory was created to all store images")
 
-
 isExist = os.path.exists(full_images_path)
 if not isExist:
     os.makedirs(full_images_path)
@@ -51,7 +51,6 @@ if not isExist:
     os.makedirs(radii_images_path)
     print("A directory was created to store radii calc images")
 
-
 mean_radii_thick = np.load(radial_data_path + "mean_radii_Thick_" + iteration + ".npy")
 mean_radii_thin = np.load(radial_data_path + "mean_radii_Thin_" + iteration + ".npy")
 
@@ -59,32 +58,30 @@ trials = int((action["stop"] - action["start"]) / action["step"])
 
 x_var = []
 k = action["start"]
-for i in range(trials+1):
+for i in range(trials + 1):
     x_var += [k]
     k += action["step"]
-    
+
 x_var = 2 * limits / np.array(x_var)
 
-
-fig, (ax1) = plt.subplots(1,1,figsize=[5,5])
+fig, (ax1) = plt.subplots(1, 1, figsize=[5, 5])
 fig.tight_layout(pad=5.0)
-
 
 n0_color = "#d55e00"
 n1_color = "#0072b2"
 n2_color = "#009e73"
 cumu_color = "#cc79a7"
 
-RingStyle ={
-    "label": ['n=0','n=1','n=2','total'],
-    "color": [n0_color,n1_color,n2_color,cumu_color],
-    "linewidth": [3,3,3,4]
+RingStyle = {
+    "label": ['n=0', 'n=1', 'n=2', 'total'],
+    "color": [n0_color, n1_color, n2_color, cumu_color],
+    "linewidth": [3, 3, 3, 4]
 }
 
-ax1.plot(x_var, mean_radii_thin[:,0],label=RingStyle["color"][0], linewidth=3)
-ax1.plot(x_var, mean_radii_thin[:,1],label=RingStyle["color"][1], linewidth=3)
-ax1.plot(x_var, mean_radii_thin[:,2],label=RingStyle["color"][2], linewidth=3)
-ax1.plot(x_var, mean_radii_thin[:,3],label=RingStyle["color"][3], linewidth=2)
+ax1.plot(x_var, mean_radii_thin[:, 0], label=RingStyle["color"][0], linewidth=3)
+ax1.plot(x_var, mean_radii_thin[:, 1], label=RingStyle["color"][1], linewidth=3)
+ax1.plot(x_var, mean_radii_thin[:, 2], label=RingStyle["color"][2], linewidth=3)
+ax1.plot(x_var, mean_radii_thin[:, 3], label=RingStyle["color"][3], linewidth=2)
 ax1.axvline(2000, color="purple")
 
 ax1.set_xlabel('Pixels')
@@ -104,10 +101,9 @@ ax1.legend()
 # ax2.title.set_text('Full Solution')
 #
 filename = images_path + 'conv_' + iteration + ".jpeg"
-plt.savefig(filename,bbox_inches='tight')
+plt.savefig(filename, bbox_inches='tight')
 print("File created: ", filename)
 plt.close()
-
 
 #
 # k = action["start"]
