@@ -78,10 +78,10 @@ RingStyle = {
     "linewidth": [3, 3, 3, 4]
 }
 
-ax1.plot(x_var, mean_radii_thin[:, 0], label=RingStyle["color"][0], linewidth=3)
-ax1.plot(x_var, mean_radii_thin[:, 1], label=RingStyle["color"][1], linewidth=3)
-ax1.plot(x_var, mean_radii_thin[:, 2], label=RingStyle["color"][2], linewidth=3)
-ax1.plot(x_var, mean_radii_thin[:, 3], label=RingStyle["color"][3], linewidth=2)
+ax1.plot(x_var, mean_radii_thin[:, 0], label=RingStyle["label"][0],color=RingStyle["color"][0], linewidth=3)
+ax1.plot(x_var, mean_radii_thin[:, 1], label=RingStyle["label"][1],color=RingStyle["color"][1], linewidth=3)
+ax1.plot(x_var, mean_radii_thin[:, 2], label=RingStyle["label"][2],color=RingStyle["color"][2], linewidth=3)
+ax1.plot(x_var, mean_radii_thin[:, 3], label=RingStyle["label"][3],color=RingStyle["color"][3], linewidth=2)
 ax1.axvline(2000, color="purple")
 
 ax1.set_xlabel('Pixels')
