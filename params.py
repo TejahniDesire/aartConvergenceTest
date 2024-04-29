@@ -45,7 +45,6 @@ limits=25
 #Resolution for the n=0 image [M]
 # dx0 =0.02
 # dx0 = 0.2
-<<<<<<< HEAD
 # dx0 = 0.09
 dx0 = .03
 #Resolution for the n=1 image [M]
@@ -58,7 +57,6 @@ dx1 = .03
 # dx2 =0.2
 # dx2 =0.09
 dx2 = .03
-=======
 dx0 = 0.09
 # dx0 = 1/30
 #Resolution for the n=1 image [M]
@@ -71,7 +69,6 @@ dx1 = 0.09
 # dx2 =0.2
 dx2 =0.09
 # dx2 = 1/30
->>>>>>> 833620cd8c405822007e13917b1162bcf3c13592
 
 
 # Projection angles for the radon transformation
