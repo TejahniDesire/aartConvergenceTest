@@ -24,6 +24,17 @@ action = {
     "step": args.step_size,
 }
 
+plt.rcParams.update({
+    'font.size' : 14,                   # Set font size to 11pt
+    'axes.labelsize': 14,               # -> axis labels
+    'legend.fontsize': 12,              # -> legends
+    'text.usetex': True,
+    'text.latex.preamble': (            # LaTeX preamble
+        r'\usepackage{lmodern}'
+    ),
+    'font.family': 'Latin Modern Roman',
+})
+
 iteration = str(action["start"]) + '_' + str(action["stop"]) + '_' + str(action["step"])
 
 iteration_path = PCPaths.aartPathResults + iteration + '/'
@@ -64,7 +75,7 @@ for i in range(trials + 1):
 
 x_var = 2 * limits / np.array(x_var)
 
-fig, (ax1) = plt.subplots(1, 1, figsize=[5, 5])
+fig, (ax1) = plt.subplots(1, 1, figsize=[5, 5],dpi=600)
 fig.tight_layout(pad=5.0)
 
 n0_color = "#d55e00"
@@ -101,7 +112,7 @@ ax1.legend()
 # ax2.title.set_text('Full Solution')
 #
 filename = images_path + 'conv_' + iteration + ".jpeg"
-plt.savefig(filename, bbox_inches='tight')
+plt.savefig(filename, bbox_inches='tight', dpi=600)
 print("File created: ", filename)
 plt.close()
 
