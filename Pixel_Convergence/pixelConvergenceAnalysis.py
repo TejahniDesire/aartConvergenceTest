@@ -95,7 +95,7 @@ ax1.plot(x_var, mean_radii_thin[:, 2], label=RingStyle["label"][2],color=RingSty
 ax1.plot(x_var, mean_radii_thin[:, 3], label=RingStyle["label"][3],color=RingStyle["color"][3], linewidth=2)
 ax1.axvline(2000, color="purple")
 
-ax1.set_xlabel(R'\sqrt{\rm{Number of pixels}}')
+ax1.set_xlabel(R'$\sqrt{\rm{Number of pixels}}$')
 ax1.set_ylabel('Mean radii')
 ax1.legend()
 
